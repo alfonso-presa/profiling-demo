@@ -4,23 +4,31 @@
         <script>
             function doOtherThing() {
                 console.log('hola');
+                document.getElementById('log').innerHTML = document.getElementById('log').innerHTML +'<p>hola</p>'
             }
 
             function doSomething() {
-                for(var i = 0; i < 100; i++) {
+                var count = 10;
+                function task() {
+                    if(count-- <= 0) {
+                        return;
+                    }
+                    setTimeout(task,100);
                     doOtherThing();
                 }
+                task();
             }
 
             function doSomethingUp() {
-                doSomething();
+                setTimeout(doSomething,100);
             }
         </script>
 
     </head>
 
     <body>
-        <button onclick="doSomethingUp()" id="a">Do</button>
+        <button onclick="doSomethingUp()">Do</button>
+        <div id="log"></div>
     </body>
 </html>
 
