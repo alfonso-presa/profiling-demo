@@ -26,10 +26,10 @@ var options = {
 };
 
 var genericCpu = {
-    "cat":"disabled-by-default-devtools.timeline",
-    "ph":"I",
-    "name":"CpuProfile",
-    "args":{}
+    cat: 'disabled-by-default-devtools.timeline',
+    ph: 'I',
+    name: 'CpuProfile',
+    args: {}
 };
 
 var count = 1;
@@ -51,7 +51,7 @@ function collect(data) {
             ts = Math.max(msg.ts, ts);
             result.push(msg);
         }
-        if(msg.name === 'SetLayerTreeId') {
+        if(msg.name === 'UpdateLayerTree') {
             cpu.pid = msg.pid;
             cpu.tid = msg.tid;
         }
@@ -59,13 +59,16 @@ function collect(data) {
     cpu.ts = ts;
     result.push(cpu);
     result.sort(function (a,b) {return a.ts > b.ts ? 1 : -1;});
-    fs.writeFile("log" + (count++), JSON.stringify(result, undefined, 2));
+    fs.writeFile('log' + (count++) + '.json', JSON.stringify(result, undefined, 2));
 }
 
 var client = webdriverio.remote(options);
 client
     .init()
+    .execute(':startProfile')
     .url('http://localhost:8080')
+    .execute(':endProfile').then(collectCpu)
+    .log('performance').then(collect)
     .execute(':startProfile')
     .click('button')
     .execute(':endProfile').then(collectCpu)

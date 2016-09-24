@@ -1,4 +1,4 @@
-var parsedJSON = require('./log1.json');
+var parsedJSON = require(process.argv[2]);
 
 var filter = parsedJSON[parsedJSON.length-1];
 
