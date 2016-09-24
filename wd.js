@@ -51,7 +51,7 @@ function collect(data) {
             ts = Math.max(msg.ts, ts);
             result.push(msg);
         }
-        if(msg.name === 'process_name' && msg.args.name === 'Browser') {
+        if(msg.name === 'SetLayerTreeId') {
             cpu.pid = msg.pid;
             cpu.tid = msg.tid;
         }
