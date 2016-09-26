@@ -1,0 +1,36 @@
+<!doctype HTML>
+<html>
+    <head>
+        <script>
+            function doOtherThing() {
+                console.log('hola');
+                document.getElementById('log').innerHTML = document.getElementById('log').innerHTML +'<p>hola</p>'
+            }
+
+            function doSomething() {
+                var count = 10;
+                function task() {
+                    if(count-- <= 0) {
+                        return;
+                    }
+                    task();
+                    doOtherThing();
+                }
+                task();
+            }
+
+            function doSomethingUp() {
+                for(var i = 0; i < 10; i++) {
+                    doSomething();
+                }
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <button onclick="doOtherThing()">Do</button>
+        <div id="log"></div>
+    </body>
+</html>
+
