@@ -66,7 +66,7 @@ var client = webdriverio.remote(options);
 client
     .init()
     .execute(':startProfile')
-    .url('http://localhost:8080?2')
+    .url('http://localhost:8080')
     .execute(':endProfile').then(collectCpu)
     .log('performance').then(collect)
     .execute(':startProfile')

@@ -13,14 +13,16 @@
                     if(count-- <= 0) {
                         return;
                     }
-                    setTimeout(task,100);
+                    task();
                     doOtherThing();
                 }
                 task();
             }
 
             function doSomethingUp() {
-                setTimeout(doSomething,100);
+                for(var i = 0; i < 10; i++) {
+                    doSomething();
+                }
             }
         </script>
 

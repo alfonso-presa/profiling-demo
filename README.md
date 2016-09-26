@@ -2,7 +2,7 @@
 
 ```sh
 npm install && npm install -g http-server
-hs sample &
+hs -c-1 -s sample &
 google-chrome --remote-debugging-port=9222 --user-data-dir=remote-profile --no-firsttime about:blank &
 ./node_modules/.bin/chromedriver --verbose &
 node wd.js
