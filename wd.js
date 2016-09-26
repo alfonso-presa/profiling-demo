@@ -1,10 +1,7 @@
 var webdriverio = require('webdriverio');
 var fs = require('fs');
 var options = {
-    port: 9515,
     logLevel: 'verbose',
-    path: '/',
-    host: 'localhost',
     desiredCapabilities: {
         browserName: 'chrome',
         loggingPrefs: {
@@ -18,9 +15,8 @@ var options = {
             perfLoggingPrefs: {
                 enableNetwork: true,
                 enablePage: true,
-                traceCategories: '-*,ipc,devtools.timeline,disabled-by-default-devtools.timeline,disabled-by-default-devtools.timeline.frame,toplevel,blink.console,blink.user_timing,latencyInfo,disabled-by-default-devtools.timeline.stack'
-            },
-            debuggerAddress: 'localhost:9222'
+                traceCategories: '-*,devtools.timeline,disabled-by-default-devtools.timeline,toplevel'
+            }
         }
     }
 };
@@ -56,6 +52,11 @@ function collect(data) {
             cpu.tid = msg.tid;
         }
     });
+
+    result = result.filter(function (item) {
+        return item.pid === cpu.pid && item.tid === cpu.tid;
+    });
+    
     cpu.ts = ts;
     result.push(cpu);
     result.sort(function (a,b) {return a.ts > b.ts ? 1 : -1;});
@@ -66,7 +67,7 @@ var client = webdriverio.remote(options);
 client
     .init()
     .execute(':startProfile')
-    .url('http://localhost:8080?10')
+    .url('http://localhost:8080?11')
     .execute(':endProfile').then(collectCpu)
     .log('performance').then(collect)
     .execute(':startProfile')
