@@ -63,7 +63,4 @@ client
     .click('button')
     .execute(':endProfile').then(collectCpu)
     .log('performance').then(collect)
-    .getTitle().then(function(title) {
-        console.log('Title is: ' + title);
-    })
     .end();
