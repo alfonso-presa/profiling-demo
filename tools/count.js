@@ -13,6 +13,7 @@ var filter = {
 var candidates = {};
 var candidates2 = {};
 var splits = {};
+var categories = {};
 
 parsedJSON.forEach(function (item) {
     var key = '' + item.pid + '-' + item.tid;
@@ -26,6 +27,8 @@ parsedJSON.forEach(function (item) {
         diffs[key] = 0;
         splits[key] = []
     }
+    var cats = item.cat ? item.cat.split(',') : [];
+    cats.forEach((value) => categories[value] = true);
 
     splits[key].push(item);
 
@@ -34,7 +37,7 @@ parsedJSON.forEach(function (item) {
 
 console.log(JSON.stringify(diffs, undefined, 2));
 console.log(JSON.stringify(candidates, undefined, 2));
-
+console.log(JSON.stringify(categories, undefined, 2));
 for(var key in candidates) {
     if(candidates.hasOwnProperty(key)) {
         fs.writeFile(process.argv[2] + '-' + key, JSON.stringify(splits[key], undefined, 2));

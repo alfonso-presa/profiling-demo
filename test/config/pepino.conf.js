@@ -9,7 +9,28 @@ var options = {
         },
         chromeOptions: {
             perfLoggingPrefs: {
-                traceCategories: '-*,devtools.timeline,disabled-by-default-devtools.timeline,toplevel'
+                traceCategories:
+                    'toplevel,'+
+                    'ipc,'+
+                    '__metadata,'+
+                    'devtools.timeline,'+
+                    'disabled-by-default-devtools.timeline,'+
+                    'v8,'+
+                    'blink,'+
+                    'blink_gc,'+
+                    'benchmark,'+
+                    'latencyInfo,'+
+                    'disabled-by-default-devtools.timeline.frame,'+
+                    'disabled-by-default-cc.debug.display_items,'+
+                    'disabled-by-default-cc.debug.picture,'+
+                    'disabled-by-default-devtools.timeline.picture,'+
+                    'disabled-by-default-cc.debug,'+
+                    'disabled-by-default-cc.debug.quads,'+
+                    'disabled-by-default-devtools.timeline.layers,'+
+                    'cc,'+
+                    'blink.animations,'+
+                    'input,'+
+                    '-*'
             }
         }
     }
