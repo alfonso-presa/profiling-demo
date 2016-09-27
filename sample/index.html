@@ -1,10 +1,41 @@
 <!doctype HTML>
 <html>
     <head>
+        <style>
+            p {
+                transition: all 2s;
+                position: relative;
+            }
+
+            p.move {
+                left: 200px;
+            }
+        </style>
         <script>
-            function doOtherThing() {
-                console.log('hola');
-                document.getElementById('log').innerHTML = document.getElementById('log').innerHTML +'<p>hola</p>'
+
+            var blob = new Blob([`
+                onmessage = function wListener(e) {
+                    function inTheWebWorker() {
+                        postMessage('msg from worker');
+                    }
+                    inTheWebWorker();
+                }
+            `]);
+
+            var worker = new Worker(window.URL.createObjectURL(blob));
+            
+            worker.onmessage = function(e) {
+                writeMessage(e.data);
+            };
+            
+            function writeMessage(text) {
+                document.getElementById('log').innerHTML = document.getElementById('log').innerHTML +`<p class="sel">${text}</p>`
+                setTimeout(() => document.querySelectorAll('p.sel').forEach((t) => t.className='move'),1);
+            }
+
+            function doOtherThing(text) {
+                worker.postMessage('Hi worker!');
+                writeMessage('hola');
             }
 
             function doSomething() {
