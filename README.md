@@ -6,8 +6,7 @@ npm install && ./node_modules/.bin/selenium-standalone install
 node wd.js
 ```
 
-Will generate log1, log2 and log3, that should be able to be opened with the chrome debugging tools or it's about:tracing
-
+Will generate `log*.json` that should be able to be opened with the chrome debugging tools or it's about:tracing
 
 ## Running in saucelabs
 
