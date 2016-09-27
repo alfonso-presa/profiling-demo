@@ -3,8 +3,9 @@
     <head>
         <style>
             p {
-                transition: all 2s;
+                transition: all 100ms;
                 position: relative;
+                left: 0;
             }
 
             p.move {
@@ -28,30 +29,35 @@
                 writeMessage(e.data);
             };
             
+            var id = 0;
             function writeMessage(text) {
-                document.getElementById('log').innerHTML = document.getElementById('log').innerHTML +`<p class="sel">${text}</p>`
-                setTimeout(() => document.querySelectorAll('p.sel').forEach((t) => t.className='move'),1);
+                var curid = id++;
+                document.getElementById('log').innerHTML = document.getElementById('log').innerHTML +`<p class="c${curid}">${text}</p>`
+                setTimeout(() => document.querySelectorAll('p.c' + curid).forEach((t) => t.className='move'),Math.floor(1000* Math.random()));
             }
 
             function doOtherThing(text) {
                 worker.postMessage('Hi worker!');
                 writeMessage('hola');
+                for(var i = 0; i < 10000; i++) {
+                    window.j = i / 1;
+                }
             }
 
             function doSomething() {
-                var count = 10;
+                var count = 5;
                 function task() {
                     if(count-- <= 0) {
                         return;
                     }
-                    task();
+                    setTimeout(task, 10);
                     doOtherThing();
                 }
                 task();
             }
 
             function doSomethingUp() {
-                for(var i = 0; i < 10; i++) {
+                for(var i = 0; i < 5; i++) {
                     doSomething();
                 }
             }

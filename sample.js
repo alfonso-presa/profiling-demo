@@ -13,12 +13,15 @@ client
     .log('performance').then(collect.perf)
     .execute(':startProfile')
     .click('button')
+    .pause(1500) //Let animations end
     .execute(':endProfile').then(collect.cpu)
     .log('performance').then(collect.perf)
     .execute(':startProfile')
     .click('button')
+    .pause(1500) //Let animations end
     .execute(':endProfile').then(collect.cpu)
     .log('performance').then(collect.perf)
     .catch(function (e) {
-    console.log(e);
-}).end();
+        console.log(e);
+    })
+.end();
